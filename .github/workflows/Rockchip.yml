@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  OPNAME: 'R68S、R2S、R4S、R5C、R5S、OPiR1Plus'
+  OPNAME: 'R68S、R2S、R4S、R5C、R5S、R6C R6S OPiR5Plus'
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
@@ -146,14 +146,14 @@ jobs:
       run: |
         echo "![](https://img.shields.io/github/downloads/${{ github.repository }}/${{ steps.tag.outputs.release_tag }}/total?style=flat-square)" >> release.txt
         echo "- FastRhino R68S" >> release.txt
-        echo "- FriendlyARM NanoPi R2S | R4S | R5C | R5S " >> release.txt
-        echo "- Xunlong Orange Pi R1 Plus" >> release.txt
+        echo "- FriendlyARM NanoPi R2S | R4S | R5C | R5S | R6C | R6S " >> release.txt
+        echo "- Xunlong Orange Pi R5 Plus" >> release.txt
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
       with:
         name: ${{ env.OPNAME }}
         tag_name: ${{ steps.tag.outputs.release_tag }}
